@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/auth/login', to: 'authentication#login'
   resources :videos
   resources :articles
   resources :users
