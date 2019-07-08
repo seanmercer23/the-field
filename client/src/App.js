@@ -144,6 +144,56 @@ async getUser() {
   )
   this.setState({currentUser: user})
 }
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Data~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  async getAllVideos() {
+    const videos = await readAllVideos()
+    this.setState({videos})
+    if(this.state.currentUser) {
+      this.getUserVideos()
+    }
+  }
+
+  nextVideo() {
+    let currentVideo = this.state.currentVideo
+    if (currentVideo === (this.state.videos.length -1)) {
+        currentVideo = 0
+        this.setState({currentVideo})
+    }
+    else {
+      currentVideo++
+      this.setState({currentVideo})
+    }
+  }
+
+  previousVideo() {
+    let currentVideo = this.state.currentVideo
+    if (currentVideo > 0) {
+        currentVideo--
+        this.setState({currentVideo})
+    }
+    else {
+      currentVideo = (this.state.videos.length -1)
+      this.setState({currentVideo})
+    }
+  }
+
+  handleVideoChange(e) {
+    const {name, value} = e.target
+    this.setState(prevState => ({
+      ...prevState.videoForm,
+      [name]: value
+    }))
+  }
+
+  async getAllArticles() {
+    const articles = await readAllArticles()
+    this.setState({articles})
+    if(this.state.currentUser) {
+      this.getUserArticles()
+    }
+  }
+
   render () {
     return (
       <div>
